@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace KnowledgeMap.Views {
+namespace PRK2.Views {
     public partial class MainPage : Page {
         public MainPage()
         {
