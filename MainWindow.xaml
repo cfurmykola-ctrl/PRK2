@@ -7,7 +7,6 @@
 
     <DockPanel LastChildFill="True">
 
-        <!-- 🔹 Верхня панель -->
         <Grid DockPanel.Dock="Top" Background="#2C3E50" Height="60">
 
             <Grid.ColumnDefinitions>
@@ -15,14 +14,12 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <!-- Заголовок -->
             <TextBlock Text="Інтерактивна карта знань"
                        Foreground="White"
                        FontSize="20"
                        VerticalAlignment="Center"
                        Margin="15,0"/>
 
-            <!-- Кнопки -->
             <StackPanel Orientation="Horizontal"
                         Grid.Column="1"
                         VerticalAlignment="Center"
@@ -37,7 +34,6 @@
             </StackPanel>
         </Grid>
 
-        <!-- 🔹 Основна область -->
         <Grid Margin="10">
 
             <Grid.RowDefinitions>
@@ -45,7 +41,6 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <!-- Контент -->
             <Border Grid.Row="0"
                     Background="#ECF0F1"
                     CornerRadius="10"
@@ -54,7 +49,6 @@
                 <Frame x:Name="MainFrame"/>
             </Border>
 
-            <!-- Статус -->
             <StatusBar Grid.Row="1">
                 <TextBlock x:Name="StatusText" Text="Готово"/>
             </StatusBar>
