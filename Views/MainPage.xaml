@@ -2,39 +2,31 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Grid>
+    <Grid Margin="20">
 
-        <Border Background="#ECF0F1"
-                CornerRadius="10"
-                Padding="20"
-                Margin="20">
+        <StackPanel>
 
-            <StackPanel>
+            <TextBlock Text="Інтерактивна карта знань"
+                       FontSize="22"
+                       Margin="0,0,0,15"/>
 
-                <TextBlock Text="Головна сторінка"
-                           FontSize="22"
-                           Margin="0,0,0,20"/>
+            <TextBlock TextWrapping="Wrap"
+                       Margin="0,0,0,20"
+                       Text="Якщо ви студент — перейдіть на сторінку 'Список' для перегляду та пошуку тем. Якщо ви викладач — увійдіть у систему, щоб отримати доступ до редагування та додавання тем."/>
 
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                    <TextBlock Text="Введіть текст:"
-                               VerticalAlignment="Center"
-                               Width="130"/>
+            <TextBlock Text="Логін"/>
+            <TextBox x:Name="LoginBox" Width="200"/>
 
-                    <TextBox x:Name="InputBox" Width="200"/>
-                </StackPanel>
+            <TextBlock Text="Пароль" Margin="0,10,0,0"/>
+            <PasswordBox x:Name="PasswordBox" Width="200"/>
 
-                <Button Content="Пошук"
-                        Width="150"
-                        HorizontalAlignment="Center"
-                        Click="Button_Click"/>
+            <Button Content="Увійти"
+                    Width="150"
+                    Margin="0,10,0,0"
+                    Click="Login_Click"/>
+            
 
-                <TextBlock x:Name="ResultText"
-                           Margin="0,15,0,0"
-                           FontSize="16"/>
-
-            </StackPanel>
-
-        </Border>
+        </StackPanel>
 
     </Grid>
 
