@@ -18,6 +18,8 @@ namespace PRK2.Views {
         public ListPage(string message)
         {
             InitializeComponent();
+
+            DataContext = App.CurrentUser;
         }
     }
 }
