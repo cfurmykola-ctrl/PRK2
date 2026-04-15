@@ -1,12 +1,12 @@
 ﻿using System.Windows;
-using KnowledgeMap.Views;
 using PRK2.Views;
 
-namespace KnowledgeMap {
+namespace PRK2 {
     public partial class MainWindow : Window {
         public MainWindow()
         {
             InitializeComponent();
+
             MainFrame.Navigate(new MainPage());
         }
 
@@ -18,14 +18,28 @@ namespace KnowledgeMap {
 
         private void List_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new ListPage());
+            MainFrame.Navigate(new ListPage((MainPage)MainFrame.Content));
             StatusText.Text = "Список тем";
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new Views.SettingsPage());
+            MainFrame.Navigate(new SettingsPage());
             StatusText.Text = "Налаштування";
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainFrame.CanGoBack)
+            {
+                MainFrame.GoBack();
+                StatusText.Text = "Повернення назад";
+            }
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
