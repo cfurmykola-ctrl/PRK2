@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using PRK2.Views;
 
 namespace PRK2 {
@@ -7,36 +8,36 @@ namespace PRK2 {
         {
             InitializeComponent();
 
+            // 👉 стартова сторінка
             MainFrame.Navigate(new MainPage());
         }
 
+        // 🏠 Головна
         private void Home_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new MainPage());
-            StatusText.Text = "Головна сторінка";
         }
 
+        // 📋 Список тем
         private void List_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new ListPage((MainPage)MainFrame.Content));
-            StatusText.Text = "Список тем";
+            MainFrame.Navigate(new ListPage());
         }
 
+        // ⚙️ Налаштування
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new SettingsPage());
-            StatusText.Text = "Налаштування";
         }
 
+        // 🔙 Назад
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             if (MainFrame.CanGoBack)
-            {
                 MainFrame.GoBack();
-                StatusText.Text = "Повернення назад";
-            }
         }
 
+        // ❌ Вихід
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

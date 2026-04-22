@@ -7,10 +7,14 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
 
+                <!-- ТЕМА -->
                 <ResourceDictionary Source="Resources/Styles.xaml"/>
+
+                <!-- МОВА -->
+                <ResourceDictionary Source="Resources/Strings.uk.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 
-</Application>
+    </Application>

@@ -1,41 +1,199 @@
-﻿using KnowledgeMap.Models;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using PRK2.Models;
+using PRK2.Services;
 
-namespace KnowledgeMap.ViewModels {
-    public class MainViewModel : BaseViewModel {
-        public ObservableCollection<Topic> Topics { get; set; }
+namespace PRK2.ViewModels {
+    public class MainViewModel : INotifyPropertyChanged {
+        public ObservableCollection<Topic> Topics { get; set; } = new ObservableCollection<Topic>();
+        public ObservableCollection<Topic> FilteredTopics { get; set; } = new ObservableCollection<Topic>();
 
-        private Topic _selectedTopic;
+        private Topic selectedTopic;
         public Topic SelectedTopic
         {
-            get => _selectedTopic;
+            get { return selectedTopic; }
             set
             {
-                _selectedTopic = value;
-                OnPropertyChanged();
+                selectedTopic = value;
+
+                if (selectedTopic != null)
+                {
+                    EditTitleUk = selectedTopic.TitleUk;
+                    EditTitleEn = selectedTopic.TitleEn;
+                    EditDescriptionUk = selectedTopic.DescriptionUk;
+                    EditDescriptionEn = selectedTopic.DescriptionEn;
+                }
+
+                OnPropertyChanged(nameof(SelectedTopic));
+            }
+        }
+
+        private string searchText;
+        public string SearchText
+        {
+            get { return searchText; }
+            set
+            {
+                searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                FilterTopics();
+            }
+        }
+
+        private string editTitleUk;
+        public string EditTitleUk
+        {
+            get { return editTitleUk; }
+            set
+            {
+                editTitleUk = value;
+                OnPropertyChanged(nameof(EditTitleUk));
+            }
+        }
+
+        private string editTitleEn;
+        public string EditTitleEn
+        {
+            get { return editTitleEn; }
+            set
+            {
+                editTitleEn = value;
+                OnPropertyChanged(nameof(EditTitleEn));
+            }
+        }
+
+        private string editDescriptionUk;
+        public string EditDescriptionUk
+        {
+            get { return editDescriptionUk; }
+            set
+            {
+                editDescriptionUk = value;
+                OnPropertyChanged(nameof(EditDescriptionUk));
+            }
+        }
+
+        private string editDescriptionEn;
+        public string EditDescriptionEn
+        {
+            get { return editDescriptionEn; }
+            set
+            {
+                editDescriptionEn = value;
+                OnPropertyChanged(nameof(EditDescriptionEn));
             }
         }
 
         public MainViewModel()
         {
-            // Тестові дані для першого запуску
-            Topics = new ObservableCollection<Topic>
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            var data = JsonService.LoadTopics();
+
+            Topics.Clear();
+
+            foreach (var item in data)
+                Topics.Add(item);
+
+            FilterTopics();
+        }
+
+        private void FilterTopics()
+        {
+            FilteredTopics.Clear();
+
+            var result = string.IsNullOrWhiteSpace(SearchText)
+                ? Topics
+                : new ObservableCollection<Topic>(
+                    Topics.Where(t =>
+                        t.Title != null &&
+                        t.Title.ToLower().Contains(SearchText.ToLower())
+                    )
+                );
+
+            foreach (var item in result)
+                FilteredTopics.Add(item);
+        }
+
+        public void AddTopic(string titleUk, string titleEn)
+        {
+            if (!string.IsNullOrWhiteSpace(titleUk) && !string.IsNullOrWhiteSpace(titleEn))
             {
-                new Topic
+                Topics.Add(new Topic
                 {
-                    Title = "Множини",
-                    Description = "Основи теорії множин",
-                    Subtopics =
-                    {
-                        new Topic { Title = "Операції над множинами", Description = "Об'єднання, перетин" }
-                    }
-                },
-                new Topic
+                    TitleUk = titleUk,
+                    TitleEn = titleEn,
+                    DescriptionUk = "Новий опис",
+                    DescriptionEn = "New description",
+                    Subtopics = new System.Collections.Generic.List<Topic>()
+                });
+
+                Save();
+                FilterTopics();
+            }
+        }
+
+        public void AddSubtopic(Topic parentTopic, string subtopicTitleUk, string subtopicTitleEn)
+        {
+            if (parentTopic != null &&
+                !string.IsNullOrWhiteSpace(subtopicTitleUk) &&
+                !string.IsNullOrWhiteSpace(subtopicTitleEn))
+            {
+                parentTopic.Subtopics.Add(new Topic
                 {
-                    Title = "Графи",
-                    Description = "Теорія графів"
-                }
-            };
+                    TitleUk = subtopicTitleUk,
+                    TitleEn = subtopicTitleEn,
+                    DescriptionUk = "Новий опис підтеми",
+                    DescriptionEn = "New subtopic description",
+                    Subtopics = new System.Collections.Generic.List<Topic>()
+                });
+
+                Save();
+                OnPropertyChanged(nameof(Topics));
+                OnPropertyChanged(nameof(FilteredTopics));
+                OnPropertyChanged(nameof(SelectedTopic));
+            }
+        }
+
+        public void DeleteTopic(Topic topic)
+        {
+            if (topic != null)
+            {
+                Topics.Remove(topic);
+                Save();
+                FilterTopics();
+            }
+        }
+
+        public void SaveEdit()
+        {
+            if (SelectedTopic != null)
+            {
+                SelectedTopic.TitleUk = EditTitleUk;
+                SelectedTopic.TitleEn = EditTitleEn;
+                SelectedTopic.DescriptionUk = EditDescriptionUk;
+                SelectedTopic.DescriptionEn = EditDescriptionEn;
+
+                Save();
+                FilterTopics();
+                OnPropertyChanged(nameof(SelectedTopic));
+            }
+        }
+
+        private void Save()
+        {
+            JsonService.SaveTopics(Topics.ToList());
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

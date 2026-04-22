@@ -1,33 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using PRK2.Services;
 
-namespace PRK2.Views
-{
-    /// <summary>
-    /// Interaction logic for SettingsPage.xaml
-    /// </summary>
-    public partial class SettingsPage : Page
-    {
+namespace PRK2.Views {
+    public partial class SettingsPage : Page {
         public SettingsPage()
         {
             InitializeComponent();
         }
 
-        private void InitializeComponent()
+        private void Apply_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            // Мова
+            if (LanguageComboBox.SelectedIndex == 0)
+                SettingsService.ChangeLanguage("UA");
+            else
+                SettingsService.ChangeLanguage("EN");
+
+            // Тема
+            if (ThemeComboBox.SelectedIndex == 0)
+                SettingsService.ChangeTheme("Light");
+            else
+                SettingsService.ChangeTheme("Dark");
+
+            MessageBox.Show("Налаштування застосовано");
         }
     }
 }

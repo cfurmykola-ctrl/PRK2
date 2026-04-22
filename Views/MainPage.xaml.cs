@@ -11,31 +11,36 @@ namespace PRK2.Views {
         {
             InitializeComponent();
 
-            DataContext = App.CurrentUser;
+            DataContext = App.CurrentUser as User;
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                string login = LoginBox.Text;
-                string password = PasswordBox.Password;
+            string login = LoginBox.Text;
+            string password = PasswordBox.Password;
 
-                if (login == "teacher" && password == "123")
-                {
-                    App.CurrentUser.IsAdmin = true;
-                    MessageBox.Show("Ви увійшли як викладач");
-                }
-                else
-                {
-                    App.CurrentUser.IsAdmin = false;
-                    MessageBox.Show("Невірний логін або пароль. Режим студента.");
-                }
-            }
-            catch (Exception ex)
+            if (string.IsNullOrWhiteSpace(login))
             {
-                MessageBox.Show("Помилка: " + ex.Message);
+                ErrorText.Text = "Введіть логін";
+                return;
             }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                ErrorText.Text = "Введіть пароль";
+                return;
+            }
+
+            ErrorText.Text = "";
+
+            bool isTeacher = login == "teacher" && password == "123";
+
+            App.CurrentUser.IsAdmin = isTeacher;
+
+            if (isTeacher)
+                MessageBox.Show("Ви увійшли як викладач");
+            else
+                MessageBox.Show("Невірний логін або пароль. Доступний тільки режим студента.");
         }
     }
 }

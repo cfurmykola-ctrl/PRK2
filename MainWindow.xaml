@@ -1,21 +1,24 @@
 ﻿<Window x:Class="PRK2.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Інтерактивна карта знань"
+        Title="{DynamicResource AppTitle}"
         Width="900" Height="600"
-        MinWidth="700" MinHeight="450">
+        MinWidth="700" MinHeight="450"
+        Background="{DynamicResource BackgroundBrush}">
 
     <DockPanel LastChildFill="True">
 
-        <Grid DockPanel.Dock="Top" Background="#2C3E50" Height="60">
+        <Grid DockPanel.Dock="Top"
+              Background="{DynamicResource HeaderBrush}"
+              Height="60">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Інтерактивна карта знань"
-                       Foreground="White"
+            <TextBlock Text="{DynamicResource AppTitle}"
+                       Foreground="{DynamicResource HeaderForegroundBrush}"
                        FontSize="20"
                        VerticalAlignment="Center"
                        Margin="15,0"/>
@@ -25,34 +28,54 @@
                         VerticalAlignment="Center"
                         Margin="10">
 
-                <Button Content="Головна" Width="90" Margin="5" Click="Home_Click"/>
-                <Button Content="Список" Width="90" Margin="5" Click="List_Click"/>
-                <Button Content="Налаштування" Width="120" Margin="5" Click="Settings_Click"/>
-                <Button Content="Назад" Width="80" Margin="5" Click="Back_Click"/>
-                <Button Content="Вихід" Width="80" Margin="5" Click="Exit_Click"/>
+                <Button Content="{DynamicResource Home}"
+                        Width="90"
+                        Margin="5"
+                        Click="Home_Click"/>
 
+                <Button Content="{DynamicResource List}"
+                        Width="90"
+                        Margin="5"
+                        Click="List_Click"/>
+
+                <Button Content="{DynamicResource Settings}"
+                        Width="120"
+                        Margin="5"
+                        Click="Settings_Click"/>
+
+                <Button Content="{DynamicResource Back}"
+                        Width="80"
+                        Margin="5"
+                        Click="Back_Click"/>
+
+                <Button Content="{DynamicResource Exit}"
+                        Width="80"
+                        Margin="5"
+                        Click="Exit_Click"/>
             </StackPanel>
         </Grid>
 
         <Grid Margin="10">
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0"
-                    Background="#ECF0F1"
+                    Background="{DynamicResource PanelBrush}"
                     CornerRadius="10"
                     Padding="10">
-
-                <Frame x:Name="MainFrame"/>
+                <Frame x:Name="MainFrame"
+                       NavigationUIVisibility="Hidden"
+                       Background="{DynamicResource PanelBrush}"/>
             </Border>
 
-            <StatusBar Grid.Row="1">
-                <TextBlock x:Name="StatusText" Text="Готово"/>
+            <StatusBar Grid.Row="1"
+                       Background="{DynamicResource StatusBarBrush}">
+                <TextBlock x:Name="StatusText"
+                           Text="{DynamicResource ReadyText}"
+                           Foreground="{DynamicResource ForegroundBrush}"/>
             </StatusBar>
-
         </Grid>
 
     </DockPanel>

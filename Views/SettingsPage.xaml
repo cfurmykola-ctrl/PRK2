@@ -1,10 +1,47 @@
-﻿<Page x:Class="KnowledgeMap.Views.SettingsPage"
+﻿<Page x:Class="PRK2.Views.SettingsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="SettingsPage"
+      Background="{DynamicResource BackgroundBrush}">
 
-    <Grid>
-        <TextBlock Text="Налаштування"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
+    <Grid Margin="20">
+
+        <Border Background="{DynamicResource PanelBrush}"
+                CornerRadius="10"
+                Padding="20">
+
+            <StackPanel Width="320">
+
+                <TextBlock Text="{DynamicResource Language}"
+                           FontSize="16"
+                           Margin="0,0,0,5"/>
+
+                <ComboBox x:Name="LanguageComboBox"
+                          SelectedIndex="0"
+                          Margin="0,0,0,20">
+                    <ComboBoxItem Content="Українська"/>
+                    <ComboBoxItem Content="English"/>
+                </ComboBox>
+
+                <TextBlock Text="{DynamicResource Theme}"
+                           FontSize="16"
+                           Margin="0,0,0,5"/>
+
+                <ComboBox x:Name="ThemeComboBox"
+                          SelectedIndex="0"
+                          Margin="0,0,0,20">
+                    <ComboBoxItem Content="{DynamicResource LightTheme}"/>
+                    <ComboBoxItem Content="{DynamicResource DarkTheme}"/>
+                </ComboBox>
+
+                <Button Content="{DynamicResource ApplyText}"
+                        Width="150"
+                        Height="35"
+                        Click="Apply_Click"/>
+
+            </StackPanel>
+
+        </Border>
+
     </Grid>
 </Page>

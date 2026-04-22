@@ -1,7 +1,31 @@
 ﻿[
   {
-    "Title": "Множини",
-    "Description": "Основи теорії множин",
+    "TitleUk": "Множини",
+    "TitleEn": "Sets",
+    "DescriptionUk": "Основи теорії множин",
+    "DescriptionEn": "Basics of set theory",
+    "Subtopics": [
+      {
+        "TitleUk": "Операції над множинами",
+        "TitleEn": "Set operations",
+        "DescriptionUk": "Об'єднання, перетин, різниця",
+        "DescriptionEn": "Union, intersection, difference",
+        "Subtopics": []
+      },
+      {
+        "TitleUk": "Підмножини",
+        "TitleEn": "Subsets",
+        "DescriptionUk": "Поняття підмножини",
+        "DescriptionEn": "Concept of subsets",
+        "Subtopics": []
+      }
+    ]
+  },
+  {
+    "TitleUk": "Логіка висловлювань",
+    "TitleEn": "Propositional Logic",
+    "DescriptionUk": "Булева логіка",
+    "DescriptionEn": "Boolean logic",
     "Subtopics": []
   }
 ]
